@@ -15,6 +15,7 @@
 
 #include <QPainter>
 #include <stdio.h>
+#include <QRegularExpression>
 #include "cccmodule.h"
 #include "interpreter.h"
 #include "renderer.h"
@@ -147,11 +148,11 @@ void CccModule::paramChange()
     {
         if (params[i].id().startsWith("Signature label"))
         {
-            words = params[i].id().split(QRegExp("\\s+"));
+            words = params[i].id().split(QRegularExpression(QStringLiteral("\\s+")));  // Qt6: QRegExp -> QRegularExpression
             if (words.length()<3) // bogus!
                 continue;
             signum = words[2].toUInt();
-            m_labels.push_back(QPair<uint16_t, QString>(convert10to8(signum), params[i].value().toString().remove(QRegExp("^\\s+")))); // remove leading whitespace
+            m_labels.push_back(QPair<uint16_t, QString>(convert10to8(signum), params[i].value().toString().remove(QRegularExpression(QStringLiteral("^\\s+"))))); // remove leading whitespace - Qt6: QRegExp -> QRegularExpression
         }
     }
 }
@@ -261,7 +262,7 @@ void CccModule::renderBlobsA(bool blend, QImage *image, float scale, BlobA2 *blo
 
         }
         else if ((str=lookup(blobs[i].m_model))=="")
-            str = str.sprintf("s=%d", blobs[i].m_model);
+            str = str.asprintf("s=%d", blobs[i].m_model);
 
        Renderer::drawText(&p, x+w/2, y+h/2, str);
     }
@@ -304,7 +305,7 @@ void CccModule::renderBlobsC(bool blend, QImage *image, float scale, BlobC *blob
 
         }
         else if ((str=lookup(blobs[i].m_model))=="")
-            str = str.sprintf("s=%d", blobs[i].m_model);
+            str = str.asprintf("s=%d", blobs[i].m_model);
 
        Renderer::drawText(&p, x+w/2, y+h/2, str);
     }

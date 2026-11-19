@@ -21,13 +21,13 @@ NORMAL_TEXT
 
 uname -a
 
-TARGET_BUILD_FOLDER=../build
+TARGET_BUILD_FOLDER=./build
 
 mkdir $TARGET_BUILD_FOLDER
 mkdir $TARGET_BUILD_FOLDER/get_raw_frame
 
 rm $TARGET_BUILD_FOLDER/get_raw_frame/get_raw_frame
-cd ../src/host/libpixyusb2_examples/get_raw_frame
+cd ./src/host/libpixyusb2_examples/get_raw_frame
 make
 mv ./get_raw_frame ../../../../build/get_raw_frame
 

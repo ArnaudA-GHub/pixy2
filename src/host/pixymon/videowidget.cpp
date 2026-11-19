@@ -210,8 +210,9 @@ void VideoWidget::mouseMoveEvent(QMouseEvent *event)
 {
     int xs, ys;
     Qt::MouseButtons b = event->buttons();
-    int x = event->x();
-    int y = event->y();
+    QPointF pos = event->position();
+    int x = pos.x();
+    int y = pos.y();
 
     // deal with mouse location
     xs = (x-m_xOffset)/m_scale+.5;
@@ -297,8 +298,9 @@ void VideoWidget::mouseReleaseEvent(QMouseEvent *event)
     }
     else if (m_inputMode==POINT)
     {
-        x = (event->x()-m_xOffset)/m_scale+.5;
-        y = (event->y()-m_yOffset)/m_scale+.5;
+        QPointF pos = event->position();
+        x = (pos.x()-m_xOffset)/m_scale+.5;
+        y = (pos.y()-m_yOffset)/m_scale+.5;
         emit selection(x, y, 0, 0);
         acceptInput(NONE);
     }

@@ -1,11 +1,12 @@
 #-------------------------------------------------
 #
 # Project created by QtCreator 2012-07-30T13:51:47
+# Modified for Qt6 compatibility
 #
 #-------------------------------------------------
 
-QT += core gui widgets xml
-QT += network
+# Qt6 modules - Qt5 modules are still valid but Qt6 is preferred
+QT += core gui widgets multimedia network xml
 
 TARGET = PixyMon
 TEMPLATE = app

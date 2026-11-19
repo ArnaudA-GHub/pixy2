@@ -40,7 +40,10 @@ int writePPM(uint16_t width, uint16_t height, uint32_t *image, const char *filen
 int demosaic(uint16_t width, uint16_t height, const uint8_t *bayerImage, uint32_t *image)
 {
   uint32_t x, y, xx, yy, r, g, b;
-  uint8_t *pixel0, *pixel;
+  const uint8_t *pixel0, *pixel;
+  
+  if (bayerImage == NULL || image == NULL || width == 0 || height == 0)
+    return -1;
   
   for (y=0; y<height; y++)
   {
@@ -49,7 +52,7 @@ int demosaic(uint16_t width, uint16_t height, const uint8_t *bayerImage, uint32_
       yy++;
     else if (yy==height-1)
       yy--;
-    pixel0 = (uint8_t *)bayerImage + yy*width;
+    pixel0 = bayerImage + yy*width;
     for (x=0; x<width; x++, image++)
     {
       xx = x;
@@ -91,14 +94,16 @@ int demosaic(uint16_t width, uint16_t height, const uint8_t *bayerImage, uint32_
       *image = (b<<16) | (g<<8) | r; 
     }
   }
+  return 0;
 }
 
+
+static uint32_t rgbFrame[PIXY2_RAW_FRAME_WIDTH*PIXY2_RAW_FRAME_HEIGHT];
 
 int main()
 {
   int  Result;
   uint8_t *bayerFrame;
-  uint32_t rgbFrame[PIXY2_RAW_FRAME_WIDTH*PIXY2_RAW_FRAME_HEIGHT];
   
   printf ("=============================================================\n");
   printf ("= PIXY2 Get Raw Frame Example                               =\n");
@@ -136,10 +141,25 @@ int main()
   // need to call stop() befroe calling getRawFrame().
   // Note, you can call getRawFrame multiple times after calling stop().
   // That is, you don't need to call stop() each time.
-  pixy.m_link.stop();
+  Result = pixy.m_link.stop();
+  if (Result < 0)
+  {
+    printf("pixy.m_link.stop() returned %d\n", Result);
+    return Result;
+  }
 
   // grab raw frame, BGGR Bayer format, 1 byte per pixel
-  pixy.m_link.getRawFrame(&bayerFrame);
+  Result = pixy.m_link.getRawFrame(&bayerFrame);
+  if (Result < 0)
+  {
+    printf("pixy.m_link.getRawFrame() returned %d\n", Result);
+    return Result;
+  }
+  if (bayerFrame == NULL)
+  {
+    printf("getRawFrame returned NULL frame\n");
+    return -1;
+  }
   // convert Bayer frame to RGB frame
   demosaic(PIXY2_RAW_FRAME_WIDTH, PIXY2_RAW_FRAME_HEIGHT, bayerFrame, rgbFrame);
   // write frame to PPM file for verification
@@ -150,4 +170,5 @@ int main()
   // Call resume() to resume the current program, otherwise Pixy will be left
   // in "paused" state.  
   pixy.m_link.resume();
+  return 0;
 }

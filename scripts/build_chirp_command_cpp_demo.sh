@@ -21,13 +21,13 @@ NORMAL_TEXT
 
 uname -a
 
-TARGET_BUILD_FOLDER=../build
+TARGET_BUILD_FOLDER=./build
 
 mkdir $TARGET_BUILD_FOLDER
 mkdir $TARGET_BUILD_FOLDER/chirp_command_cpp_demo
 
 rm $TARGET_BUILD_FOLDER/chirp_command_cpp_demo/chirp_command_cpp_demo
-cd ../src/host/libpixyusb2_examples/chirp_command_cpp_demo
+cd ./src/host/libpixyusb2_examples/chirp_command_cpp_demo
 make
 mv ./chirp_command_cpp_demo ../../../../build/chirp_command_cpp_demo
 

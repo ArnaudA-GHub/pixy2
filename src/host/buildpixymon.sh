@@ -14,7 +14,8 @@ echo Building for $platform
 cd src/host/pixymon
 
 if [[ "$platform" == 'linux' ]]; then
-   qmake pixymon.pro
+   # Use Qt6 installation at /opt/Qt/6.12.0/gcc_64 for Qt6 compatibility
+   /opt/Qt/6.12.0/gcc_64/bin/qmake pixymon.pro
    make -w
    cd ../../..
    cp src/host/pixymon/PixyMon .
@@ -27,7 +28,8 @@ if [[ "$platform" == 'linux' ]]; then
 fi
 
 if [[ "$platform" == 'mac' ]]; then
-   qmake pixymon.pro
+   # Use Qt6 installation at /opt/Qt/Tools/QtDesignStudio for Qt6 compatibility
+   /opt/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake pixymon.pro
    make -w
    cd ../../..
    cp -rf src/host/pixymon/PixyMon.app .

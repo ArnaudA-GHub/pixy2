@@ -18,7 +18,7 @@ BUILD_LIBPIXYUSB2=1
 # SCRIPT START                                                                               #
 ##############################################################################################
 
-rm -rdf ../build
+rm -rdf ./build
 
 function WHITE_TEXT {
   printf "\033[1;37m"
@@ -45,7 +45,7 @@ function TIME_DELTA () {
 if [ $BUILD_PIXYMON == 1 ]; then
   SECONDS=0
   PIXYMON_START=$SECONDS
-  ./build_pixymon_src.sh
+  scripts/build_pixymon_src.sh
   PIXYMON_END=$SECONDS
 fi
 
@@ -54,7 +54,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_LIBPIXYUSB2 == 1 ]; then
-  ./build_libpixyusb2.sh
+  scripts/build_libpixyusb2.sh
 fi
 
 ##############################################################################################
@@ -62,7 +62,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_PYTHON_DEMOS == 1 ]; then
-  ./build_python_demos.sh
+  scripts/build_python_demos.sh
 fi
 
 ##############################################################################################
@@ -70,7 +70,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_CHIRP_COMMAND_CPP_DEMO == 1 ]; then
-  ./build_chirp_command_cpp_demo.sh
+  scripts/build_chirp_command_cpp_demo.sh
 fi
 
 ##############################################################################################
@@ -78,7 +78,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_GET_BLOCKS_CPP_DEMO == 1 ]; then
-  ./build_get_blocks_cpp_demo.sh
+  scripts/build_get_blocks_cpp_demo.sh
 fi
 
 ##############################################################################################
@@ -86,7 +86,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_GET_LINES_CPP_DEMO == 1 ]; then
-  ./build_get_lines_cpp_demo.sh
+  scripts/build_get_lines_cpp_demo.sh
 fi
 
 ##############################################################################################
@@ -94,7 +94,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_GET_RAW_FRAME == 1 ]; then
-  ./build_get_raw_frame.sh
+  scripts/build_get_raw_frame.sh
 fi
 
 ##############################################################################################
@@ -102,7 +102,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_GET_RGB_DEMO == 1 ]; then
-  ./build_get_rgb_demo.sh
+  scripts/build_get_rgb_demo.sh
 fi
 
 ##############################################################################################
@@ -110,7 +110,7 @@ fi
 ##############################################################################################
 
 if [ $BUILD_PAN_TILT_CPP_DEMO == 1 ]; then
-  ./build_pan_tilt_demo.sh
+  scripts/build_pan_tilt_demo.sh
 fi
 
 ##############################################################################################
@@ -126,7 +126,7 @@ echo "#"
 if [ $BUILD_PIXYMON == 1 ]; then
   WHITE_TEXT
   printf "# PixyMon ......................................................... "
-  if [ -f ../build/pixymon/PixyMon ]; then
+  if [ -f ./build/pixymon/PixyMon ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -141,7 +141,7 @@ fi
 if [ $BUILD_LIBPIXYUSB2 == 1 ]; then
   WHITE_TEXT
   printf "# libpixyusb2 ..................................................... "
-  if [ -f ../build/libpixyusb2/libpixy2.a ]; then
+  if [ -f ./build/libpixyusb2/libpixy2.a ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -154,7 +154,7 @@ fi
 if [ $BUILD_CHIRP_COMMAND_CPP_DEMO == 1 ]; then
   WHITE_TEXT
   printf "# chirp_command_cpp_demo .......................................... "
-  if [ -f ../build/chirp_command_cpp_demo/chirp_command_cpp_demo ]; then
+  if [ -f ./build/chirp_command_cpp_demo/chirp_command_cpp_demo ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -167,7 +167,7 @@ fi
 if [ $BUILD_GET_BLOCKS_CPP_DEMO == 1 ]; then
   WHITE_TEXT
   printf "# get_blocks_cpp_demo ............................................. "
-  if [ -f ../build/get_blocks_cpp_demo/get_blocks_cpp_demo ]; then
+  if [ -f ./build/get_blocks_cpp_demo/get_blocks_cpp_demo ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -180,7 +180,7 @@ fi
 if [ $BUILD_GET_LINES_CPP_DEMO == 1 ]; then
   WHITE_TEXT
   printf "# get_lines_cpp_demo .............................................. "
-  if [ -f ../build/get_lines_cpp_demo/get_lines_cpp_demo ]; then
+  if [ -f ./build/get_lines_cpp_demo/get_lines_cpp_demo ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -193,7 +193,7 @@ fi
 if [ $BUILD_PAN_TILT_CPP_DEMO == 1 ]; then
   WHITE_TEXT
   printf "# pan_tilt_demo ................................................... "
-  if [ -f ../build/pan_tilt_demo/pan_tilt_demo ]; then
+  if [ -f ./build/pan_tilt_demo/pan_tilt_demo ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -206,7 +206,7 @@ fi
 if [ $BUILD_GET_RAW_FRAME == 1 ]; then
   WHITE_TEXT
   printf "# get_raw_frame ................................................... "
-  if [ -f ../build/get_raw_frame/get_raw_frame ]; then
+  if [ -f ./build/get_raw_frame/get_raw_frame ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -219,7 +219,7 @@ fi
 if [ $BUILD_GET_RGB_DEMO == 1 ]; then
   WHITE_TEXT
   printf "# get_rgb_demo .................................................... "
-  if [ -f ../build/get_rgb_demo/get_rgb_demo ]; then
+  if [ -f ./build/get_rgb_demo/get_rgb_demo ]; then
     GREEN_TEXT
     printf "SUCCESS "
   else
@@ -232,7 +232,7 @@ fi
 if [ $BUILD_PYTHON_DEMOS == 1 ]; then
   WHITE_TEXT
   printf "# python demos .................................................... "
-  if [ -f ../build/python_demos/_pixy.so ]; then
+  if ls ./build/python_demos/*.so >/dev/null 2>&1; then
     GREEN_TEXT
     printf "SUCCESS "
   else

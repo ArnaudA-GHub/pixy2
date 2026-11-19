@@ -21,22 +21,23 @@ NORMAL_TEXT
 
 uname -a
 
-TARGET_BUILD_FOLDER=../build
+TARGET_BUILD_FOLDER=./build
 
 mkdir $TARGET_BUILD_FOLDER
 mkdir $TARGET_BUILD_FOLDER/python_demos
 
-cd ../src/host/libpixyusb2_examples/python_demos
+cd ./src/host/libpixyusb2_examples/python_demos
 
 swig -c++ -python pixy.i
-python swig.dat build_ext --inplace -D__LINUX__
+python3 swig.dat build_ext --inplace -D__LINUX__
 
 files=(../../../../build/python_demos/*.so)
 if (( ${#files[@]} )); then
   rm ../../../../build/python_demos/*.so
 fi
 
-cp * ../../../../build/python_demos
+cp *.py *.so ../../../../build/python_demos/ 2>/dev/null
+cp pixy.py ../../../../build/python_demos/ 2>/dev/null
 
 files=(../../../../build/python_demos/*.so)
 if (( ${#files[@]} )); then
